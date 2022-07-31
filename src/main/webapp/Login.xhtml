@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>LOGIN</title>
+	<link rel="icon" href="../imagen/Recurso-4.ico"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<style>
+body {
+	margin: 0;
+	font-family: arial;
+}
+
+.Design {
+	background-image: url("../imagen/Fondo Login_Mesa de trabajo 1.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.logo {
+	width: 200px;
+	position: absolute;
+	z-index: 3;
+	margin-left: 150px;
+	margin-top: -100px;
+}
+
+.mainPage {
+	width: 800px !important;
+	height: 500px !important;
+	background: white;
+	color: white;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 30px;
+	overflow: hidden;
+}
+
+.Login {
+	width: 400px;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.Login p{
+	color: gray;
+	text-align: end;
+}
+
+.Login p:hover {
+	color: maroon;
+	cursor: pointer;
+}
+
+.Login img {
+	width: 130px;
+	margin-bottom: 50px;
+	margen: 0;
+}
+
+.imagenLogin {
+	width: 400px;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center; overflow : hidden;
+	object-fit: cover;
+	overflow: hidden;
+}
+
+.imagenLogin img {
+	width: 800px;
+	margin-left: -90px
+}
+
+.inputU-text{
+	width: 300px;
+	border: none !important;
+	border-bottom: 1px solid gray !important;
+	margin-bottom: 15px
+}
+
+.inputU {
+	width: 300px;
+	border: none !important;
+	border-bottom: 1px solid gray !important;
+
+}
+
+.buttonU {
+	background:white;
+	color: white !important;
+	background: #F77E21 !important;
+	width: 300px !important;
+	border-radius: 15px !important;
+	border: none !important;
+	font-size: 20px !important;
+	margin-top: 30px !important;
+	padding: 2px !important;
+}
+</style>
+</h:head>
+
+<h:body>
+	<div class="Design">
+
+
+
+		<div class="mainPage">
+
+			<div class="imagenLogin">
+				<img src="../imagen/book-1421097.jpg" alt="rezando" />
+
+			</div>
+			<div class="Login">
+				<img src="../imagen/Recurso 2.png" alt="user"></img>
+				<h:form>
+				<p:growl id="mensaje" showDetail="true" />
+					<p:inputText class="inputU-text" value="#{loginVista.nuevoLogin.username}" id="username1" placeholder="Usuario" />
+					<div class="card">
+						<p:password id="toggle"  class="inputU" value="#{loginVista.nuevoLogin.password}"  placeholder="Contraseña" toggleMask="true" redisplay="true"/>
+					</div>
+					<p>¿Olvidaste tu contraseña?</p>
+					<div>
+					
+						<p:commandButton action="#{loginVista.Login}" class="buttonU"
+							update="@form" value="Ingresar" />
+					</div>
+				</h:form>
+			</div>
+
+		</div>
+	</div>
+</h:body>
+</h:html>

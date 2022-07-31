@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>REGISTRO DE USUARIOS</title>
+</h:head>
+<h:body>
+	<h:form id="frmUsuarios">
+		<p:growl id="mensaje" showDetail="true" />
+		<p:commandButton value="Nuevo Usuario" icon="pi pi-plus-circle"
+			oncomplete="PF('usuarioDialogo').show()" style="margin-right: .5rem">
+		</p:commandButton>
+		<p:panel header="Usuario" id="panelUsuario">
+			<p:dataTable id="dtusuario" var="usr"
+				value="#{usuarioVista.listaUsuario}" rowKey="#{usr.id}"
+				paginator="true" paginatorPosition="bottom" rows="5"
+				selectionMode="single">
+				<p:column headerText="ID" sortBy="#{usr.id}">
+					<h:outputText value="#{usr.id}" />
+				</p:column>
+				<p:column headerText="Nombre" sortBy="#{usr.first_name}">
+					<h:outputText value="#{usr.first_name}" />
+				</p:column>
+				<p:column headerText="Apellido" sortBy="#{usr.last_name}"
+					filterBy="#{usr.last_name}">
+					<h:outputText value="#{usr.last_name}" />
+				</p:column>
+				<p:column headerText="Username" sortBy="#{usr.username}"
+					filterBy="#{usr.username}">
+					<h:outputText value="#{usr.username}" />
+				</p:column>
+				<p:column headerText="Foto">
+					<h:outputText value="#{usr.image}" />
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+		<p:dialog header="Usuario" showEffect="slide and transfer"
+			hideEffect="fold" modal="true" widgetVar="usuarioDialogo"
+			responsive="true">
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Nombre" />
+				<p:inputText value="#{usuarioVista.nuevoUsuario.first_name}" />
+				<p:outputLabel value="Apellido" />
+				<p:inputText value="#{usuarioVista.nuevoUsuario.last_name}" />
+				<p:outputLabel value="Username" />
+				<p:inputText value="#{usuarioVista.nuevoUsuario.username}" />
+			</h:panelGrid>
+
+			<f:facet name="footer">
+				<p:commandButton value="Guardar" icon="pi pi-check"
+					actionListener="#{usuarioVista.insertarUsuario}" />
+				<p:commandButton value="Cancelar" icon="pi pi-times"
+					onclick="PF('estudianteDialogo').hide()"
+					class="ui-button-secondary" />
+			</f:facet>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

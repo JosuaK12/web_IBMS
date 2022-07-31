@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>VISTA DE ASISTENCIA</title>
+</h:head>
+<h:body>
+	<h:form id="frmRegistro">
+		<p:growl id="mensaje" showDetail="true" />
+		<p:commandButton value="Nuevo Registro" icon="pi pi-plus-circle"
+			oncomplete="PF('registroDialogo').show()" style="margin-right: .5rem">
+		</p:commandButton>
+		<p:panel header="Registro" id="panelRegistro">
+			<p:dataTable id="dtregistro" var="reg"
+				value="#{registroVista.listaRegistro}" rowKey="#{reg.id}"
+				paginator="true" paginatorPosition="bottom" rows="5"
+				selectionMode="single" lazy="true">
+				<p:column headerText="ID" sortBy="#{reg.id}">
+					<h:outputText value="#{reg.id}" />
+				</p:column>
+				<p:column headerText="Nombre del Usuario" sortBy="#{reg.user}"
+					filterBy="#{reg.user}">
+					<h:outputText value="#{reg.user}" />
+				</p:column>
+				<p:column headerText="Nombre del Evento" sortBy="#{reg.eventos}"
+					filterBy="#{reg.eventos}">
+					<h:outputText value="#{reg.eventos}" />
+				</p:column>
+				<p:column headerText="Fecha de registro">
+					<h:outputText value="#{reg.reg_fechaRegistro}" />
+				</p:column>
+				<p:column headerText="Asistencia">
+					<h:outputText value="#{reg.reg_asistencia}" />
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+		<p:dialog header="Registro" showEffect="slide and transfer"
+			hideEffect="fold" modal="true" widgetVar="registroDialogo"
+			responsive="true">
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Fecha de registro" />
+				<p:inputText
+					value="#{registroVista.nuevoRegistro.reg_fechaRegistro}" />
+				<p:outputLabel value="Asistencia" />
+				<p:inputText value="#{registroVista.nuevoRegistro.reg_asistencia}" />
+				<p:outputLabel value="Usuario" />
+				<p:selectOneMenu id="option" filter="true"
+					value="#{registroVista.user_id}">
+					<f:selectItem itemLabel="Seleccionar Usuario" itemValue="" />
+					<f:selectItems value="#{registroVista.listaUsuario}"
+						var="selectRegistro" itemLabel="#{selectRegistro.username}"
+						itemValue="#{selectRegistro.id}" />
+				</p:selectOneMenu>
+				<p:outputLabel value="Evento" />
+				<p:selectOneMenu id="option2" filter="true"
+					value="#{registroVista.eventos_id}">
+					<f:selectItem itemLabel="Seleccionar Evento" itemValue="" />
+					<f:selectItems value="#{registroVista.listaEventos}"
+						var="selectRegistro" itemLabel="#{selectRegistro.eve_nombre}"
+						itemValue="#{selectRegistro.id}" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+
+			<f:facet name="footer">
+				<p:commandButton value="Guardar" icon="pi pi-check"
+					actionListener="#{registroVista.insertarRegistro}" />
+				<p:commandButton value="Cancelar" icon="pi pi-times"
+					onclick="PF('registroDialogo').hide()" class="ui-button-secondary" />
+			</f:facet>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

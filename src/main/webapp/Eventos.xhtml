@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>REGISTRO DE EVENTOS</title>
+</h:head>
+<h:body>
+	<h:form id="frmEventos">
+		<p:growl id="mensaje" showDetail="true" />
+		<p:commandButton value="Nuevo Evento" icon="pi pi-plus-circle"
+			oncomplete="PF('eventosDialogo').show()" style="margin-right: .5rem">
+		</p:commandButton>
+		<p:panel header="Eventos" id="panelEventos">
+			<p:dataTable id="dteventos" var="eve"
+				value="#{eventosVista.listaEventos}" rowKey="#{eve.id}"
+				paginator="true" paginatorPosition="bottom" rows="5"
+				selectionMode="single">
+				<p:column headerText="ID" sortBy="#{eve.id}">
+					<h:outputText value="#{eve.id}" />
+				</p:column>
+				<p:column headerText="Nombre del Evento" sortBy="#{eve.eve_nombre}">
+					<h:outputText value="#{eve.eve_nombre}" />
+				</p:column>
+				<p:column headerText="Informacion del Evento" sortBy="#{eve.eve_info}">
+					<h:outputText value="#{eve.eve_info}" />
+				</p:column>
+				<p:column headerText="Fecha del Evento" sortBy="#{eve.eve_fecha}"
+					filterBy="#{eve.eve_fecha}">
+					<h:outputText value="#{eve.eve_fecha}" />
+				</p:column>
+				<p:column headerText="Hora de inicio" sortBy="#{eve.eve_horaInicio}">
+					<h:outputText value="#{eve.eve_horaInicio}" />
+				</p:column>
+				<p:column headerText="Hora de Finalizacion" sortBy="#{eve.eve_horaFinal}">
+					<h:outputText value="#{eve.eve_horaFinal}" />
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+		<p:dialog header="Eventos" showEffect="slide and transfer"
+			hideEffect="fold" modal="true" widgetVar="eventosDialogo"
+			responsive="true">
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Nombre del evento" />
+				<p:inputText value="#{eventosVista.nuevoEventos.eve_nombre}" />
+				<p:outputLabel value="Informacion del evento" />
+				<p:inputText value="#{eventosVista.nuevoEventos.eve_info}" />
+				<p:outputLabel value="Fecha" />
+				<p:inputText value="#{eventosVista.nuevoEventos.eve_fecha}" />
+				<p:outputLabel value="Hora de inicio" />
+				<p:inputText value="#{eventosVista.nuevoEventos.eve_horaInicio}" />
+				<p:outputLabel value="Hora de fin" />
+				<p:inputText value="#{eventosVista.nuevoEventos.eve_horaFinal}" />
+			</h:panelGrid>
+
+			<f:facet name="footer">
+				<p:commandButton value="Guardar" icon="pi pi-check"
+					actionListener="#{eventosVista.insertarEventos}" />
+				<p:commandButton value="Cancelar" icon="pi pi-times"
+					onclick="PF('eventosDialogo').hide()"
+					class="ui-button-secondary" />
+			</f:facet>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>REGISTRO DE CATEGORIAS</title>
+</h:head>
+<h:body>
+	<h:form id="frmCategoria">
+		<p:growl id="mensaje" showDetail="true" />
+		<p:commandButton value="Nuevo Categoria" icon="pi pi-plus-circle"
+			oncomplete="PF('categoriaDialogo').show()" style="margin-right: .5rem">
+		</p:commandButton>
+		<p:panel header="Categoria" id="panelCategoria">
+			<p:dataTable id="dtcategoria" var="cat"
+				value="#{categoriaVista.listaCategoria}" rowKey="#{cat.id}"
+				paginator="true" paginatorPosition="bottom" rows="5"
+				selectionMode="single">
+				<p:column headerText="ID" sortBy="#{cat.id}">
+					<h:outputText value="#{cat.id}" />
+				</p:column>
+				<p:column headerText="Nombre de la categoria" sortBy="#{cat.cat_nombre}">
+					<h:outputText value="#{cat.cat_nombre}" />
+				</p:column>
+				<p:column headerText="Descripcion de la categoria" sortBy="#{cat.cat_descripcion}">
+					<h:outputText value="#{cat.cat_descripcion}" />
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+		<p:dialog header="Categoria" showEffect="slide and transfer"
+			hideEffect="fold" modal="true" widgetVar="categoriaDialogo"
+			responsive="true">
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Nombre de la categoria" />
+				<p:inputText value="#{categoriaVista.nuevoCategoria.cat_nombre}" />
+				<p:outputLabel value="Descipcion" />
+				<p:inputText value="#{categoriaVista.nuevoCategoria.cat_descripcion}" />
+			</h:panelGrid>
+
+			<f:facet name="footer">
+				<p:commandButton value="Guardar" icon="pi pi-check"
+					actionListener="#{categoriaVista.insertarCategoria}" />
+				<p:commandButton value="Cancelar" icon="pi pi-times"
+					onclick="PF('categoriaDialogo').hide()"
+					class="ui-button-secondary" />
+			</f:facet>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

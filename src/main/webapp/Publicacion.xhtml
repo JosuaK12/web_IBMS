@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>REGISTRO DE PUBLICACIONES</title>
+</h:head>
+<h:body>
+	<h:form id="frmPublicacion">
+		<p:growl id="mensaje" showDetail="true" />
+		<p:commandButton value="Nuevo Publicacion" icon="pi pi-plus-circle"
+			oncomplete="PF('publicacionDialogo').show()"
+			style="margin-right: .5rem">
+		</p:commandButton>
+		<p:panel header="Publicacion" id="panelPublicacion">
+			<p:dataTable id="dtpublicacion" var="pub"
+				value="#{publicacionVista.listaPublicacion}" rowKey="#{pub.id}"
+				paginator="true" paginatorPosition="bottom" rows="5"
+				selectionMode="single" lazy="true">
+				<p:column headerText="ID" sortBy="#{pub.id}">
+					<h:outputText value="#{pub.id}" />
+				</p:column>
+				<p:column headerText="Titulo" sortBy="#{pub.pub_titulo}">
+					<h:outputText value="#{pub.pub_titulo}" />
+				</p:column>
+				<p:column headerText="Contenido">
+					<h:outputText value="#{pub.pub_contenido}" />
+				</p:column>
+				<p:column headerText="Fecha de publicación">
+					<h:outputText value="#{pub.pub_fechaPublic}" />
+				</p:column>
+				<p:column headerText="Usuario">
+					<h:outputText value="#{pub.user}" />
+				</p:column>
+				<p:column headerText="Categoria">
+					<h:outputText value="#{pub.categoria}" />
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+		<p:dialog header="Publicacion" showEffect="slide and transfer"
+			hideEffect="fold" modal="true" widgetVar="publicacionDialogo"
+			responsive="true">
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Titulo" />
+				<p:inputText value="#{publicacionVista.nuevoPublicacion.pub_titulo}" />
+				<p:outputLabel value="Contenido" />
+				<p:inputText
+					value="#{publicacionVista.nuevoPublicacion.pub_contenido}" />
+				<p:outputLabel value="Usuario" />
+				<p:selectOneMenu id="option" filter="true"
+					value="#{publicacionVista.user_id}">
+					<f:selectItem itemLabel="Seleccionar Usuario" itemValue="" />
+					<f:selectItems value="#{publicacionVista.listaUsuario}"
+						var="selectPublicacion" itemLabel="#{selectPublicacion.username}"
+						itemValue="#{selectPublicacion.id}" />
+				</p:selectOneMenu>
+				<p:outputLabel value="Categoria" />
+				<p:selectOneMenu id="option2" filter="true"
+					value="#{publicacionVista.categoria_id}">
+					<f:selectItem itemLabel="Seleccionar Categoria" itemValue="" />
+					<f:selectItems value="#{publicacionVista.listaCategoria}"
+						var="selectPublicacion"
+						itemLabel="#{selectPublicacion.cat_nombre}"
+						itemValue="#{selectPublicacion.id}" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+
+			<f:facet name="footer">
+				<p:commandButton value="Guardar" icon="pi pi-check"
+					actionListener="#{publicacionVista.insertarPublicacion}" />
+				<p:commandButton value="Cancelar" icon="pi pi-times"
+					onclick="PF('publicacionDialogo').hide()" class="ui-button-secondary" />
+
+			</f:facet>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>
